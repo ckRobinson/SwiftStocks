@@ -11,7 +11,7 @@ struct PortfolioResponse: Decodable {
     let stocks: [Stock]
 }
 
-struct Stock: Decodable {
+struct Stock: Decodable, Hashable {
     let ticker: String
     let name: String
     let currency: String
