@@ -15,6 +15,7 @@
 		7EEB4F642A5F2BD50004556B /* StocksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB4F632A5F2BD50004556B /* StocksUITests.swift */; };
 		7EEB4F662A5F2BD50004556B /* StocksUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB4F652A5F2BD50004556B /* StocksUITestsLaunchTests.swift */; };
 		7EEB4F742A5F6C290004556B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB4F732A5F6C290004556B /* NetworkService.swift */; };
+		7EEB4F772A5F6CA00004556B /* PortfolioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB4F762A5F6CA00004556B /* PortfolioModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		7EEB4F632A5F2BD50004556B /* StocksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksUITests.swift; sourceTree = "<group>"; };
 		7EEB4F652A5F2BD50004556B /* StocksUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7EEB4F732A5F6C290004556B /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		7EEB4F762A5F6CA00004556B /* PortfolioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		7EEB4F472A5F2BD40004556B /* Stocks */ = {
 			isa = PBXGroup;
 			children = (
+				7EEB4F752A5F6C7F0004556B /* Model */,
 				7EEB4F722A5F6C070004556B /* Services */,
 				7EEB4F482A5F2BD40004556B /* StocksApp.swift */,
 				7EEB4F4A2A5F2BD40004556B /* ContentView.swift */,
@@ -136,6 +139,14 @@
 				7EEB4F732A5F6C290004556B /* NetworkService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		7EEB4F752A5F6C7F0004556B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7EEB4F762A5F6CA00004556B /* PortfolioModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +281,7 @@
 			files = (
 				7EEB4F4B2A5F2BD40004556B /* ContentView.swift in Sources */,
 				7EEB4F742A5F6C290004556B /* NetworkService.swift in Sources */,
+				7EEB4F772A5F6CA00004556B /* PortfolioModel.swift in Sources */,
 				7EEB4F492A5F2BD40004556B /* StocksApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
