@@ -17,7 +17,7 @@ class ContentViewModel: ObservableObject {
         Task {
             do {
                 let data = try await self.networkService.fetchPortfolio();
-                print(data);
+                self.stocks = data.stocks;
             }
             catch {
                 print(error.localizedDescription);
