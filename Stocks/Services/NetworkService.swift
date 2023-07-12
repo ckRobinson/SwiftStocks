@@ -12,7 +12,11 @@ enum APIError: Error {
     case invalidResponse
 }
 
-class NetworkService {
+protocol PortfolioFetchProtocol {
+    func fetchPortfolio() async throws -> PortfolioResponse;
+}
+
+class NetworkService: PortfolioFetchProtocol {
     
     func fetchPortfolio() async throws -> PortfolioResponse {
      
