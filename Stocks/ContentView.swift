@@ -12,18 +12,34 @@ struct ContentView: View {
     @StateObject var viewModel = ContentViewModel();
     
     var body: some View {
-        ScrollView {
-            ForEach(self.viewModel.stocks, id: \.self) { stock in
-                
-                StockCardView(stockData: stock)
-                    .padding(.bottom)
-                
+        
+        ZStack {
+            switch(viewModel.viewState) {
+            case .loading:
+                loadingView
+            case .loadedResults:
+                ScrollView {
+                    ForEach(self.viewModel.stocks, id: \.self) { stock in
+                        
+                        StockCardView(stockData: stock)
+                            .padding(.bottom)
+                        
+                    }
+                }
+            case .emptyResults:
+                EmptyView()
+            case .error:
+                EmptyView()
             }
         }
         .padding()
         .onAppear() {
             viewModel.fetchData()
         }
+    }
+    
+    var loadingView: some View {
+        ProgressView()
     }
 }
 
