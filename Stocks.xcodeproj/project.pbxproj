@@ -50,6 +50,7 @@
 		7EEB4F732A5F6C290004556B /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7EEB4F762A5F6CA00004556B /* PortfolioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioModel.swift; sourceTree = "<group>"; };
 		7EEB4F792A5F6E7B0004556B /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		7EEB4F7B2A5F76CA0004556B /* Stocks.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Stocks.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 		7EEB4F3C2A5F2BD40004556B = {
 			isa = PBXGroup;
 			children = (
+				7EEB4F7B2A5F76CA0004556B /* Stocks.xctestplan */,
 				7EEB4F472A5F2BD40004556B /* Stocks */,
 				7EEB4F582A5F2BD50004556B /* StocksTests */,
 				7EEB4F622A5F2BD50004556B /* StocksUITests */,
