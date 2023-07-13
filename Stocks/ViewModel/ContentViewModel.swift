@@ -10,7 +10,11 @@ import Foundation
 class ContentViewModel: ObservableObject {
     
     @Published var stocks: [Stock] = [];
-    let networkService: NetworkService = NetworkService();
+    let networkService: PortfolioFetchProtocol
+    
+    init(service: PortfolioFetchProtocol = NetworkService()) {
+        self.networkService = service;
+    }
     
     @MainActor func fetchData() {
         
