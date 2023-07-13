@@ -9,6 +9,15 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:Stocks.xcodeproj",
+          "identifier" : "7EEB4F442A5F2BD40004556B",
+          "name" : "Stocks"
+        }
+      ]
+    },
     "targetForVariableExpansion" : {
       "containerPath" : "container:Stocks.xcodeproj",
       "identifier" : "7EEB4F442A5F2BD40004556B",
