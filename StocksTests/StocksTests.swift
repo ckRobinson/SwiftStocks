@@ -17,20 +17,41 @@ final class StocksTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test_APIModelDecode_Success() async throws {
+        
+        let service = NetworkService()
+        let data = try await service.fetchPortfolio()
+        XCTAssertTrue(data.stocks.count > 0)
     }
+}
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+class TestsNetworkService: PortfolioFetchProtocol {
+    
+    let fileName: TestFileName;
+    init(fileName: TestFileName) {
+        self.fileName = fileName;
     }
+    
+    private func loadMockData(_ file: String) -> URL? {
+        
+        print(file);
+        
+        let bundle = Bundle(for: type(of: self))
+        let url = bundle.url(forResource: file, withExtension: "json")
+        return url;
+    }
+    
+    func fetchPortfolio() async throws -> PortfolioResponse {
+        
+        guard let url = self.loadMockData(self.fileName.rawValue) else { throw APIError.invalidUrl }
+        let data = try! Data(contentsOf: url);
+        return try JSONDecoder().decode(PortfolioResponse.self, from: data)
+    }
+}
 
+enum TestFileName: String {
+    case apiSuccessData = "API_SuccessData"
+    case malformedData = "API_Malformed"
+    case emptyData = "API_Empty"
 }
