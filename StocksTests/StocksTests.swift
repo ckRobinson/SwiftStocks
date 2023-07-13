@@ -24,6 +24,48 @@ final class StocksTests: XCTestCase {
         let data = try await service.fetchPortfolio()
         XCTAssertTrue(data.stocks.count > 0)
     }
+    
+    func test_APIModelDecode_Fail() async throws {
+        
+        let service = NetworkService(networkState: .malformed)
+        do {
+            let _ = try await service.fetchPortfolio()
+        }
+        catch {
+            XCTAssertTrue(true)
+            return;
+        }
+        XCTAssertTrue(false);
+    }
+    
+    func test_APIModelDecode_Empty() async throws {
+        
+        let service = NetworkService(networkState: .empty)
+        let data = try await service.fetchPortfolio()
+        XCTAssertTrue(data.stocks.count == 0);
+    }
+    
+    func test_APIModelDecode_BadUrl() async throws {
+        
+        let service = NetworkService(urlString: "Bad Url String")
+        do {
+            let _ = try await service.fetchPortfolio()
+        }
+        catch {
+            if let error = error as? APIError, error == .invalidUrl {
+                XCTAssertTrue(true);
+                return;
+            }
+        }
+        XCTAssert(false);
+    }
+    
+    func test_FileModelDecode_Success() async throws {
+        
+        let service = TestsNetworkService(fileName: .apiSuccessData)
+        let data = try await service.fetchPortfolio()
+        XCTAssertTrue(data.stocks.count > 0);
+    }
 }
 
 class TestsNetworkService: PortfolioFetchProtocol {
@@ -52,6 +94,4 @@ class TestsNetworkService: PortfolioFetchProtocol {
 
 enum TestFileName: String {
     case apiSuccessData = "API_SuccessData"
-    case malformedData = "API_Malformed"
-    case emptyData = "API_Empty"
 }
