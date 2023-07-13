@@ -56,13 +56,14 @@ final class StocksTests: XCTestCase {
     }
 
     
+    func test_NetworkServiceDecode_Success() async throws {
         
         let service = NetworkService()
         let data = try await service.fetchPortfolio()
         XCTAssertTrue(data.stocks.count > 0)
     }
     
-    func test_APIModelDecode_Fail() async throws {
+    func test_NetworkServiceDecode_Fail() async throws {
         
         let service = NetworkService(networkState: .malformed)
         do {
@@ -75,14 +76,14 @@ final class StocksTests: XCTestCase {
         XCTAssertTrue(false);
     }
     
-    func test_APIModelDecode_Empty() async throws {
+    func test_NetworkServiceDecode_Empty() async throws {
         
         let service = NetworkService(networkState: .empty)
         let data = try await service.fetchPortfolio()
         XCTAssertTrue(data.stocks.count == 0);
     }
     
-    func test_APIModelDecode_BadUrl() async throws {
+    func test_NetworkServiceDecode_BadUrl() async throws {
         
         let service = NetworkService(urlString: "Bad Url String")
         do {
@@ -95,13 +96,6 @@ final class StocksTests: XCTestCase {
             }
         }
         XCTAssert(false);
-    }
-    
-    func test_FileModelDecode_Success() async throws {
-        
-        let service = TestsNetworkService(fileName: .apiSuccessData)
-        let data = try await service.fetchPortfolio()
-        XCTAssertTrue(data.stocks.count > 0);
     }
 }
 
