@@ -30,7 +30,7 @@ struct ContentView: View {
                 case .emptyResults:
                     emptyResults
                 case .error:
-                    EmptyView()
+                    errorLoading
                 }
             }
             .padding()
@@ -50,6 +50,10 @@ struct ContentView: View {
     
     var emptyResults: some View {
         Text("No results found.")
+    }
+    
+    var errorLoading: some View {
+        Text("Could not load data. Please try again later.")
     }
 }
 
