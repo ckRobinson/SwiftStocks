@@ -11,7 +11,7 @@ struct ContentView: View {
     
     @StateObject var viewModel = ContentViewModel();
     @State var searchText: String = "";
-    @State var isPresenting: Stock_API? = nil;
+    @State var isPresenting: Stock? = nil;
     var body: some View {
         
         NavigationStack {
@@ -29,7 +29,7 @@ struct ContentView: View {
                             Button(action: {
                                 self.isPresenting = stock;
                             }, label:{
-                                StockCardView(stockData: stock)
+                                StockCardView(stock: stock)
                                     .padding(.bottom)
                             })
                             .foregroundColor(.black)

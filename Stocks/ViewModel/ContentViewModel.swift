@@ -16,9 +16,9 @@ enum ViewState {
 
 class ContentViewModel: ObservableObject {
     
-    @Published var stocks: [Stock_API] = [];
+    @Published var stocks: [Stock] = [];
     @Published var viewState: ViewState = .loading
-    private var loadedStocks: [Stock_API] = []
+    private var loadedStocks: [Stock] = []
     
     let networkService: PortfolioFetchProtocol
     
@@ -31,8 +31,11 @@ class ContentViewModel: ObservableObject {
         Task {
             do {
                 let data = try await self.networkService.fetchPortfolio();
-                self.stocks = data.stocks;
-                self.loadedStocks = data.stocks;
+                self.loadedStocks = data.stocks.map({ stockData in
+                    Stock(stockData: stockData)
+                })
+                
+                self.stocks = self.loadedStocks
                 self.updateViewState()
             }
             catch {

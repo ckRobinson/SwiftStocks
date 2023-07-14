@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StockDetailsSheetView: View {
     
-    let stockData: Stock_API
+    let stockData: Stock
     var body: some View {
         VStack {
             HStack {
@@ -28,7 +28,7 @@ struct StockDetailsSheetView: View {
                 
                 VStack(alignment: .trailing) {
                     Text("Price per Share:")
-                    Text("$\(stockData.currentPriceCents)")
+                    Text(stockData.priceStringWithCurrency)
                         .fontWeight(.bold)
                 }
                 .font(.callout)
@@ -39,14 +39,14 @@ struct StockDetailsSheetView: View {
             VStack {
                 Text("Current Investment:")
                     .font(.headline)
-                Text("\(stockData.quantity ?? 0) shares")
+                Text("\(stockData.quantity) shares")
             }
             .padding(.top)
             
             Spacer()
             VStack(alignment: .trailing) {
                 Text("Price Last Updated:")
-                Text("\(stockData.currentPriceTimestamp)")
+                Text("\(stockData.currentPriceDateTime)")
             }
             .font(.footnote)
             .frame(maxWidth: .infinity, alignment: .trailing)
@@ -66,7 +66,7 @@ struct StockDetailsSheetView_Previews: PreviewProvider {
 }
 
 private struct StockDetailsSheetPreviewWrapper: View {
-    let data = Stock_API.mockData
+    let data = Stock.mockData
     @State var presenting = true;
     
     var body: some View {
