@@ -41,8 +41,8 @@ struct StockCardView: View {
     }
 }
 
-//struct StockCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StockCardView()
-//    }
-//}
+struct StockCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        StockCardView(stockData: Stock.mockData)
+    }
+}

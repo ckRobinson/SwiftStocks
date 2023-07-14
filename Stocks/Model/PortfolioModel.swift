@@ -27,4 +27,11 @@ struct Stock: Decodable, Hashable {
         case quantity
         case currentPriceTimestamp = "current_price_timestamp"
     }
+    
+    static let mockData = Stock(ticker: "UA",
+                                name: "Under Armour, Inc.",
+                                currency: "USD",
+                                currentPriceCents: 844,
+                                quantity: nil,
+                                currentPriceTimestamp: 1597942385)
 }
