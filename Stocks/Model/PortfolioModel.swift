@@ -11,7 +11,8 @@ struct PortfolioResponse: Decodable {
     let stocks: [Stock]
 }
 
-struct Stock: Decodable, Hashable {
+struct Stock: Decodable, Identifiable {
+    let id = UUID()
     let ticker: String
     let name: String
     let currency: String

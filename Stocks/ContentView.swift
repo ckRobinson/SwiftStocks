@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @StateObject var viewModel = ContentViewModel();
     @State var searchText: String = "";
+    @State var isPresenting: Stock? = nil;
     var body: some View {
         
         NavigationStack {
@@ -23,10 +24,21 @@ struct ContentView: View {
                     case .loading:
                         loadingView
                     case .loadedResults:
-                        ForEach(self.viewModel.stocks, id: \.self) { stock in
+                        ForEach(self.viewModel.stocks) { stock in
                             
-                            StockCardView(stockData: stock)
-                                .padding(.bottom)
+                            Button(action: {
+                                self.isPresenting = stock;
+                            }, label:{
+                                StockCardView(stockData: stock)
+                                    .padding(.bottom)
+                            })
+                            .foregroundColor(.black)
+                        }
+                        .sheet(item: $isPresenting) { stock in
+                            
+                            StockDetailsSheetView(stockData: stock)
+                            .presentationDetents([.fraction(0.33)])
+                            .presentationDragIndicator(.visible)
                         }
                     case .emptyResults:
                         emptyResults
