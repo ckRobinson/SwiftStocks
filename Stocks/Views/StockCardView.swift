@@ -7,32 +7,49 @@
 
 import SwiftUI
 
+private class StockCardViewModel {
+    let stockData: Stock;
+    let stockPriceRising: Bool;
+    let stockPriceString: String;
+    let currencySymbol: String;
+    init(stockData: Stock) {
+        self.stockData = stockData;
+        self.stockPriceRising = Int.random(in: 0...1) == 1;
+        
+        self.stockPriceString = String(format: "%0.2f", Float(stockData.currentPriceCents) / 100.0);
+        self.currencySymbol = "$";
+    }
+}
+
 struct StockCardView: View {
     
-    let stockData: Stock;
+    private let viewModel: StockCardViewModel
+    init(stockData: Stock) {
+        self.viewModel = StockCardViewModel(stockData: stockData);
+    }
+    
     var body: some View {
         
         HStack {
             VStack(alignment: .leading) {
-                Text(stockData.ticker)
-                Text(stockData.name)
+                Text(viewModel.stockData.ticker)
+                Text(viewModel.stockData.name)
                     .font(.footnote)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
             Spacer()
-            VStack {
-                if( Int.random(in: 0...1) == 0) {
-                    Text("$\(stockData.currentPriceCents)")
-                        .foregroundColor(.red)
-                        .shadow(color: .black, radius: 0.1)
+            Group {
+                if viewModel.stockPriceRising {
+                    Text("\(viewModel.currencySymbol)\(viewModel.stockPriceString)")
+                        .foregroundColor(.green)
                 }
                 else {
-                    Text("$\(stockData.currentPriceCents)")
-                        .foregroundColor(.green)
-                        .shadow(color: .black, radius: 0.1)
+                    Text("\(viewModel.currencySymbol)\(viewModel.stockPriceString)")
+                        .foregroundColor(.red)
                 }
             }
+            .shadow(color: .black, radius: 0.1)
         }
         .frame(maxWidth: .infinity)
         .padding()
