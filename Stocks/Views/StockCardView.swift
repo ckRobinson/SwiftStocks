@@ -46,6 +46,8 @@ struct StockCardView: View {
 
             Text("\(viewModel.currencySymbol)\(viewModel.stockPriceString)")
                 .shadow(color: .black, radius: 0.1)
+            
+            Image(systemName: "chevron.forward")
         }
         .frame(maxWidth: .infinity)
         .padding()
