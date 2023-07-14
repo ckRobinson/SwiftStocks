@@ -36,3 +36,40 @@ struct Stock_API: Decodable, Identifiable {
                                 quantity: nil,
                                 currentPriceTimestamp: 1597942385)
 }
+
+struct Stock: Identifiable {
+    let id = UUID()
+    let ticker: String;
+    let name: String;
+    let quantity: Int;
+    private let currentPriceCents: Int;
+    var currentPriceString: String {
+        String(format: "%0.2f", Float(self.currentPriceCents) / 100.0);
+    }
+    var priceStringWithCurrency: String {
+        "\(self.currencySymbol)\(self.currentPriceString)"
+    }
+    
+    let currentPriceDateTime: Date
+    
+    let currency: String;
+    var currencySymbol: String = "$";
+    
+    init(stockData: Stock_API) {
+        
+        self.ticker = stockData.ticker;
+        self.name = stockData.name;
+        self.quantity = stockData.quantity ?? 0;
+        self.currentPriceCents = stockData.currentPriceCents;
+        
+        self.currentPriceDateTime = Date(timeIntervalSince1970: Double(stockData.currentPriceTimestamp))
+        
+        self.currency = stockData.currency;
+    }
+    
+    mutating func parseCurrencySymbol() {
+        //TODO: Can setup switching currency symbol here.
+    }
+    
+    static let mockData = Stock(stockData: Stock_API.mockData)
+}
