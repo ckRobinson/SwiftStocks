@@ -15,26 +15,30 @@ struct ContentView: View {
         
         NavigationStack {
             ZStack {
-                switch(viewModel.viewState) {
-                case .loading:
-                    loadingView
-                case .loadedResults:
-                    ScrollView {
+                BackgroundView()
+                    .ignoresSafeArea(.all)
+                
+                ScrollView {
+                    switch(viewModel.viewState) {
+                    case .loading:
+                        loadingView
+                    case .loadedResults:
                         ForEach(self.viewModel.stocks, id: \.self) { stock in
                             
                             StockCardView(stockData: stock)
                                 .padding(.bottom)
-                            
                         }
+                    case .emptyResults:
+                        emptyResults
+                    case .error:
+                        errorLoading
                     }
-                case .emptyResults:
-                    emptyResults
-                case .error:
-                    errorLoading
                 }
+                .padding()
             }
-            .padding()
             .navigationTitle("Stocks")
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
         }
         .onAppear() {
             viewModel.fetchData()
