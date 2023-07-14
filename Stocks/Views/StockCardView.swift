@@ -39,12 +39,18 @@ struct StockCardView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             
             Spacer()
-            Group {
+            HStack {
                 if viewModel.stockPriceRising {
+                    Image(systemName: "arrow.up")
+                        .fontWeight(.bold)
+                        .foregroundColor(.green)
                     Text("\(viewModel.currencySymbol)\(viewModel.stockPriceString)")
                         .foregroundColor(.green)
                 }
                 else {
+                    Image(systemName: "arrow.down")
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
                     Text("\(viewModel.currencySymbol)\(viewModel.stockPriceString)")
                         .foregroundColor(.red)
                 }
