@@ -33,7 +33,7 @@ class ContentViewModel: ObservableObject {
                 let data = try await self.networkService.fetchPortfolio();
                 self.stocks = data.stocks;
                 self.loadedStocks = data.stocks;
-                self.viewState = .loadedResults
+                self.updateViewState()
             }
             catch {
                 print(error.localizedDescription);
@@ -43,6 +43,11 @@ class ContentViewModel: ObservableObject {
     }
     
     func searchLoadedStocks(searchText: String) {
+        
+        if(self.viewState == .error) {
+            return;
+        }
+        
         if(searchText == "") {
             
             self.stocks = self.loadedStocks;
