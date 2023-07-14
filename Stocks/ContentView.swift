@@ -10,36 +10,46 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var viewModel = ContentViewModel();
-    
+    @State var searchText: String = "";
     var body: some View {
         
-        ZStack {
-            switch(viewModel.viewState) {
-            case .loading:
-                loadingView
-            case .loadedResults:
-                ScrollView {
-                    ForEach(self.viewModel.stocks, id: \.self) { stock in
-                        
-                        StockCardView(stockData: stock)
-                            .padding(.bottom)
-                        
+        NavigationStack {
+            ZStack {
+                switch(viewModel.viewState) {
+                case .loading:
+                    loadingView
+                case .loadedResults:
+                    ScrollView {
+                        ForEach(self.viewModel.stocks, id: \.self) { stock in
+                            
+                            StockCardView(stockData: stock)
+                                .padding(.bottom)
+                            
+                        }
                     }
+                case .emptyResults:
+                    emptyResults
+                case .error:
+                    EmptyView()
                 }
-            case .emptyResults:
-                EmptyView()
-            case .error:
-                EmptyView()
             }
+            .padding()
         }
-        .padding()
         .onAppear() {
             viewModel.fetchData()
         }
+        .searchable(text: $searchText, prompt: "Search")
+        .onChange(of: searchText, perform: { value in
+            viewModel.searchLoadedStocks(searchText: value);
+        })
     }
     
     var loadingView: some View {
         ProgressView()
+    }
+    
+    var emptyResults: some View {
+        Text("No results found.")
     }
 }
 
