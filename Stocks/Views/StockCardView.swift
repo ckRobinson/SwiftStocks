@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum StockPriceState {
+    case rising;
+    case falling;
+}
+
 private class StockCardViewModel {
     let stockData: Stock;
     let stockPriceRising: Bool;
