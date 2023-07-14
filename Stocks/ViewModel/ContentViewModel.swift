@@ -16,9 +16,9 @@ enum ViewState {
 
 class ContentViewModel: ObservableObject {
     
-    @Published var stocks: [Stock] = [];
+    @Published var stocks: [Stock_API] = [];
     @Published var viewState: ViewState = .loading
-    private var loadedStocks: [Stock] = []
+    private var loadedStocks: [Stock_API] = []
     
     let networkService: PortfolioFetchProtocol
     

@@ -8,10 +8,10 @@
 import Foundation
 
 struct PortfolioResponse: Decodable {
-    let stocks: [Stock]
+    let stocks: [Stock_API]
 }
 
-struct Stock: Decodable, Identifiable {
+struct Stock_API: Decodable, Identifiable {
     let id = UUID()
     let ticker: String
     let name: String
@@ -29,7 +29,7 @@ struct Stock: Decodable, Identifiable {
         case currentPriceTimestamp = "current_price_timestamp"
     }
     
-    static let mockData = Stock(ticker: "UA",
+    static let mockData = Stock_API(ticker: "UA",
                                 name: "Under Armour, Inc.",
                                 currency: "USD",
                                 currentPriceCents: 844,

@@ -11,7 +11,7 @@ struct ContentView: View {
     
     @StateObject var viewModel = ContentViewModel();
     @State var searchText: String = "";
-    @State var isPresenting: Stock? = nil;
+    @State var isPresenting: Stock_API? = nil;
     var body: some View {
         
         NavigationStack {

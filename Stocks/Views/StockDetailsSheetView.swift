@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StockDetailsSheetView: View {
     
-    let stockData: Stock
+    let stockData: Stock_API
     var body: some View {
         VStack {
             HStack {
@@ -66,7 +66,7 @@ struct StockDetailsSheetView_Previews: PreviewProvider {
 }
 
 private struct StockDetailsSheetPreviewWrapper: View {
-    let data = Stock.mockData
+    let data = Stock_API.mockData
     @State var presenting = true;
     
     var body: some View {
