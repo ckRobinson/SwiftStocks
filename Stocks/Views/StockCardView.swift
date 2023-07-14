@@ -14,12 +14,16 @@ enum StockPriceState {
 
 private class StockCardViewModel {
     let stockData: Stock;
-    let stockPriceRising: Bool;
+    let stockPriceState: StockPriceState;
     let stockPriceString: String;
     let currencySymbol: String;
+    var stockStateImage: String;
+
     init(stockData: Stock) {
         self.stockData = stockData;
-        self.stockPriceRising = Int.random(in: 0...1) == 1;
+        self.stockPriceState = Int.random(in: 0...1) == 1 ? StockPriceState.rising : StockPriceState.falling;
+        self.stockStateImage = "arrow.up";
+        if self.stockPriceState == .falling { self.stockStateImage = "arrow.down"; }
         
         self.stockPriceString = String(format: "%0.2f", Float(stockData.currentPriceCents) / 100.0);
         self.currencySymbol = "$";
@@ -44,22 +48,13 @@ struct StockCardView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             
             Spacer()
+
             HStack {
-                if viewModel.stockPriceRising {
-                    Image(systemName: "arrow.up")
-                        .fontWeight(.bold)
-                        .foregroundColor(.green)
-                    Text("\(viewModel.currencySymbol)\(viewModel.stockPriceString)")
-                        .foregroundColor(.green)
-                }
-                else {
-                    Image(systemName: "arrow.down")
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                    Text("\(viewModel.currencySymbol)\(viewModel.stockPriceString)")
-                        .foregroundColor(.red)
-                }
+                Image(systemName: viewModel.stockStateImage)
+                    .fontWeight(.bold)
+                Text("\(viewModel.currencySymbol)\(viewModel.stockPriceString)")
             }
+            .stockStyle(viewModel.stockPriceState)
             .shadow(color: .black, radius: 0.1)
         }
         .frame(maxWidth: .infinity)
