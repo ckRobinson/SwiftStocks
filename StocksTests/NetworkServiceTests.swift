@@ -57,32 +57,3 @@ final class NetworkServiceTests: XCTestCase {
         XCTAssert(false);
     }
 }
-
-class TestsNetworkService: PortfolioFetchProtocol {
-    
-    let fileName: TestFileName;
-    init(fileName: TestFileName) {
-        self.fileName = fileName;
-    }
-    
-    private func loadMockData(_ file: String) -> URL? {
-        
-        print(file);
-        
-        let bundle = Bundle(for: type(of: self))
-        let url = bundle.url(forResource: file, withExtension: "json")
-        return url;
-    }
-    
-    func fetchPortfolio() async throws -> PortfolioResponse {
-        
-        guard let url = self.loadMockData(self.fileName.rawValue) else { throw APIError.invalidUrl }
-        let data = try! Data(contentsOf: url);
-        return try JSONDecoder().decode(PortfolioResponse.self, from: data)
-    }
-}
-
-enum TestFileName: String {
-    case apiSuccessData = "API_SuccessData"
-    case malformedData = "API_MalformedData"
-}

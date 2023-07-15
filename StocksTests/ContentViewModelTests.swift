@@ -22,7 +22,7 @@ final class ContentViewModelTests: XCTestCase {
     func test_ViewModelDecodes_Success() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch success.");
-        let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .apiSuccessData) )
+        let viewModel = ContentViewModel(service: FilePortfolioService(fileName: .apiSuccessData) )
         await viewModel.fetchData()
 
         viewModel.$stocks
@@ -39,7 +39,7 @@ final class ContentViewModelTests: XCTestCase {
     func test_ViewModelDecodes_Failure() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch failure.");
-        let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .malformedData) )
+        let viewModel = ContentViewModel(service: FilePortfolioService(fileName: .malformedData) )
         await viewModel.fetchData()
         
         viewModel.$viewState
@@ -56,7 +56,7 @@ final class ContentViewModelTests: XCTestCase {
     func test_ViewModel_SearchOnError() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch failure.");
-        let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .malformedData) )
+        let viewModel = ContentViewModel(service: FilePortfolioService(fileName: .malformedData) )
         await viewModel.fetchData()
         
         viewModel.$viewState
@@ -76,7 +76,7 @@ final class ContentViewModelTests: XCTestCase {
     func test_ViewModelEmptySearch_Success() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch success.");
-        let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .apiSuccessData) )
+        let viewModel = ContentViewModel(service: FilePortfolioService(fileName: .apiSuccessData) )
         await viewModel.fetchData()
         
         viewModel.$stocks
@@ -97,7 +97,7 @@ final class ContentViewModelTests: XCTestCase {
     func test_ViewModelSearch_NoResults() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch success.");
-        let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .apiSuccessData) )
+        let viewModel = ContentViewModel(service: FilePortfolioService(fileName: .apiSuccessData) )
         await viewModel.fetchData()
         
         viewModel.$stocks
@@ -117,7 +117,7 @@ final class ContentViewModelTests: XCTestCase {
     func test_ViewModelSearch_OneResults() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch success.");
-        let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .apiSuccessData) )
+        let viewModel = ContentViewModel(service: FilePortfolioService(fileName: .apiSuccessData) )
         await viewModel.fetchData()
         
         viewModel.$stocks
@@ -133,4 +133,31 @@ final class ContentViewModelTests: XCTestCase {
         viewModel.searchLoadedStocks(searchText: "GSPC")
         XCTAssert(viewModel.stocks.count == 1)
     }
+}
+
+class FilePortfolioService: PortfolioFetchProtocol {
+    
+    let fileName: TestFileName;
+    init(fileName: TestFileName) {
+        self.fileName = fileName;
+    }
+    
+    private func loadMockData(_ file: String) -> URL? {
+        
+        let bundle = Bundle(for: type(of: self))
+        let url = bundle.url(forResource: file, withExtension: "json")
+        return url;
+    }
+    
+    func fetchPortfolio() async throws -> PortfolioResponse {
+        
+        guard let url = self.loadMockData(self.fileName.rawValue) else { throw APIError.invalidUrl }
+        let data = try! Data(contentsOf: url);
+        return try JSONDecoder().decode(PortfolioResponse.self, from: data)
+    }
+}
+
+enum TestFileName: String {
+    case apiSuccessData = "API_SuccessData"
+    case malformedData = "API_MalformedData"
 }
