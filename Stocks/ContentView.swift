@@ -19,29 +19,32 @@ struct ContentView: View {
                 BackgroundView()
                     .ignoresSafeArea(.all)
                 
-                ScrollView {
+                VStack {
                     switch(viewModel.viewState) {
                     case .loading:
                         loadingView
                     case .loadedResults:
-                        ForEach(self.viewModel.stocks) { stock in
-                            
-                            Button(action: {
-                                self.isPresenting = stock;
-                            }, label:{
-                                StockCardView(stock: stock)
-                                    .padding(.bottom)
-                            })
-                            .foregroundColor(.black)
-                        }
-                        .sheet(item: $isPresenting) { stock in
-                            
-                            StockDetailsSheetView(stockData: stock)
-                                .presentationDetents([.fraction(0.33)])
-                                .presentationDragIndicator(.visible)
+                        ScrollView {
+                            ForEach(self.viewModel.stocks) { stock in
+                                
+                                Button(action: {
+                                    self.isPresenting = stock;
+                                }, label:{
+                                    StockCardView(stock: stock)
+                                        .padding(.bottom)
+                                })
+                                .foregroundColor(.black)
+                            }
+                            .sheet(item: $isPresenting) { stock in
+                                
+                                StockDetailsSheetView(stockData: stock)
+                                    .presentationDetents([.fraction(0.33)])
+                                    .presentationDragIndicator(.visible)
+                            }
                         }
                     case .emptyResults:
                         emptyResults
+
                     case .error:
                         errorLoading
                     }
@@ -63,14 +66,17 @@ struct ContentView: View {
     
     var loadingView: some View {
         ProgressView()
+            .tint(.white)
     }
     
     var emptyResults: some View {
         Text("No results found.")
+            .foregroundColor(.white)
     }
     
     var errorLoading: some View {
         Text("Could not load data. Please try again later.")
+            .foregroundColor(.white)
     }
 }
 
