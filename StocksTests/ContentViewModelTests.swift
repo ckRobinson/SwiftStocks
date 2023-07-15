@@ -20,12 +20,12 @@ final class ContentViewModelTests: XCTestCase {
     }
 
     /// Not sure if marking this as @MainActor is the right way to test an @MainActor function but it seems to work.
-    @MainActor func test_ViewModelDecodes_Success() async throws {
+    func test_ViewModelDecodes_Success() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch success.");
-        let viewModel = ContentViewModel()
-        viewModel.fetchData()
-        
+        let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .apiSuccessData) )
+        await viewModel.fetchData()
+
         viewModel.$stocks
             .sink { stocks in
                 if stocks.count > 0 {
@@ -37,15 +37,15 @@ final class ContentViewModelTests: XCTestCase {
         await fulfillment(of: [exp], timeout: 10.0)
     }
     
-    @MainActor func test_ViewModelDecodes_Failure() async throws {
+    func test_ViewModelDecodes_Failure() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch failure.");
         let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .malformedData) )
-        viewModel.fetchData()
+        await viewModel.fetchData()
         
         viewModel.$viewState
             .sink { state in
-                if(state == .error) {
+                if state == .error {
                     exp.fulfill()
                 }
             }
@@ -54,15 +54,15 @@ final class ContentViewModelTests: XCTestCase {
         await fulfillment(of: [exp], timeout: 10.0)
     }
     
-    @MainActor func test_ViewModel_SearchOnError() async throws {
+    func test_ViewModel_SearchOnError() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch failure.");
         let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .malformedData) )
-        viewModel.fetchData()
+        await viewModel.fetchData()
         
         viewModel.$viewState
             .sink { state in
-                if(state == .error) {
+                if state == .error {
                     exp.fulfill()
                 }
             }
@@ -74,15 +74,17 @@ final class ContentViewModelTests: XCTestCase {
         XCTAssert(viewModel.viewState == .error)
     }
     
-    @MainActor func test_ViewModelEmptySearch_Success() async throws {
+    func test_ViewModelEmptySearch_Success() async throws {
         
-        let exp = XCTestExpectation(description: "View Model fetch failure.");
+        let exp = XCTestExpectation(description: "View Model fetch success.");
         let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .apiSuccessData) )
-        viewModel.fetchData()
+        await viewModel.fetchData()
         
         viewModel.$stocks
             .sink { stocks in
-                exp.fulfill()
+                if stocks.count > 0 {
+                    exp.fulfill()
+                }
             }
             .store(in: &cancellables)
 
@@ -93,15 +95,15 @@ final class ContentViewModelTests: XCTestCase {
         XCTAssert(numStocks == viewModel.stocks.count)
     }
     
-    @MainActor func test_ViewModelSearch_NoResults() async throws {
+    func test_ViewModelSearch_NoResults() async throws {
         
-        let exp = XCTestExpectation(description: "View Model Fetch.");
+        let exp = XCTestExpectation(description: "View Model fetch success.");
         let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .apiSuccessData) )
-        viewModel.fetchData()
+        await viewModel.fetchData()
         
         viewModel.$stocks
             .sink { stocks in
-                if(stocks.count > 0) {
+                if stocks.count > 0 {
                     exp.fulfill()
                 }
             }
@@ -113,11 +115,11 @@ final class ContentViewModelTests: XCTestCase {
         XCTAssert(viewModel.viewState == .emptyResults)
     }
     
-    @MainActor func test_ViewModelSearch_OneResults() async throws {
+    func test_ViewModelSearch_OneResults() async throws {
         
-        let exp = XCTestExpectation(description: "View Model Fetch.");
+        let exp = XCTestExpectation(description: "View Model fetch success.");
         let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .apiSuccessData) )
-        viewModel.fetchData()
+        await viewModel.fetchData()
         
         viewModel.$stocks
             .sink { stocks in
