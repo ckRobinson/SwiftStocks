@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E4923922A621B7E007F05BA /* ContentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4923912A621B7E007F05BA /* ContentViewModelTests.swift */; };
+		7E4923942A6225F5007F05BA /* StockStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4923932A6225F5007F05BA /* StockStructTests.swift */; };
 		7EEB4F492A5F2BD40004556B /* StocksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB4F482A5F2BD40004556B /* StocksApp.swift */; };
 		7EEB4F4B2A5F2BD40004556B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB4F4A2A5F2BD40004556B /* ContentView.swift */; };
 		7EEB4F4D2A5F2BD50004556B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EEB4F4C2A5F2BD50004556B /* Assets.xcassets */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E4923912A621B7E007F05BA /* ContentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModelTests.swift; sourceTree = "<group>"; };
+		7E4923932A6225F5007F05BA /* StockStructTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockStructTests.swift; sourceTree = "<group>"; };
 		7EEB4F452A5F2BD40004556B /* Stocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EEB4F482A5F2BD40004556B /* StocksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksApp.swift; sourceTree = "<group>"; };
 		7EEB4F4A2A5F2BD40004556B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 				7EEB4F592A5F2BD50004556B /* StocksTests.swift */,
 				7EEB4F822A60B9CF0004556B /* API_MalformedData.json */,
 				7EEB4F7C2A5F7BD80004556B /* API_SuccessData.json */,
+				7E4923912A621B7E007F05BA /* ContentViewModelTests.swift */,
+				7E4923932A6225F5007F05BA /* StockStructTests.swift */,
 			);
 			path = StocksTests;
 			sourceTree = "<group>";
@@ -332,6 +338,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E4923922A621B7E007F05BA /* ContentViewModelTests.swift in Sources */,
+				7E4923942A6225F5007F05BA /* StockStructTests.swift in Sources */,
 				7EEB4F5A2A5F2BD50004556B /* StocksTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
