@@ -72,9 +72,9 @@ struct Stock: Identifiable {
         self.currency = stockData.currency;
     }
     
-    mutating func parseCurrencySymbol() {
-        //TODO: Can setup switching currency symbol here.
-    }
+//    //TODO: Can setup switching currency symbol here.
+//    mutating func parseCurrencySymbol() {
+//    }
     
     static let mockData = Stock(stockData: Stock_API.mockData)
 }

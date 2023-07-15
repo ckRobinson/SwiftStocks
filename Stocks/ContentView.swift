@@ -37,8 +37,8 @@ struct ContentView: View {
                         .sheet(item: $isPresenting) { stock in
                             
                             StockDetailsSheetView(stockData: stock)
-                            .presentationDetents([.fraction(0.33)])
-                            .presentationDragIndicator(.visible)
+                                .presentationDetents([.fraction(0.33)])
+                                .presentationDragIndicator(.visible)
                         }
                     case .emptyResults:
                         emptyResults
