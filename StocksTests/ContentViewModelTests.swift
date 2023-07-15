@@ -19,7 +19,6 @@ final class ContentViewModelTests: XCTestCase {
         self.cancellables = [];
     }
 
-    /// Not sure if marking this as @MainActor is the right way to test an @MainActor function but it seems to work.
     func test_ViewModelDecodes_Success() async throws {
         
         let exp = XCTestExpectation(description: "View Model fetch success.");
