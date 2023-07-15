@@ -26,10 +26,10 @@ final class ContentViewModelTests: XCTestCase {
         await viewModel.fetchData()
 
         viewModel.$stocks
+            .dropFirst()
             .sink { stocks in
-                if stocks.count > 0 {
-                    exp.fulfill()
-                }
+                XCTAssert(stocks.count > 0)
+                exp.fulfill()
             }
             .store(in: &cancellables)
 
@@ -43,10 +43,10 @@ final class ContentViewModelTests: XCTestCase {
         await viewModel.fetchData()
         
         viewModel.$viewState
+            .dropFirst()
             .sink { state in
-                if state == .error {
-                    exp.fulfill()
-                }
+                XCTAssert(state == .error)
+                exp.fulfill()
             }
             .store(in: &cancellables)
 
@@ -60,10 +60,10 @@ final class ContentViewModelTests: XCTestCase {
         await viewModel.fetchData()
         
         viewModel.$viewState
+            .dropFirst()
             .sink { state in
-                if state == .error {
-                    exp.fulfill()
-                }
+                XCTAssert(state == .error)
+                exp.fulfill()
             }
             .store(in: &cancellables)
 
@@ -80,10 +80,10 @@ final class ContentViewModelTests: XCTestCase {
         await viewModel.fetchData()
         
         viewModel.$stocks
+            .dropFirst()
             .sink { stocks in
-                if stocks.count > 0 {
-                    exp.fulfill()
-                }
+                XCTAssert(stocks.count > 0)
+                exp.fulfill()
             }
             .store(in: &cancellables)
 
@@ -101,10 +101,9 @@ final class ContentViewModelTests: XCTestCase {
         await viewModel.fetchData()
         
         viewModel.$stocks
+            .dropFirst()
             .sink { stocks in
-                if stocks.count > 0 {
-                    exp.fulfill()
-                }
+                exp.fulfill()
             }
             .store(in: &cancellables)
 
@@ -121,10 +120,10 @@ final class ContentViewModelTests: XCTestCase {
         await viewModel.fetchData()
         
         viewModel.$stocks
+            .dropFirst()
             .sink { stocks in
-                if(stocks.count > 0) {
-                    exp.fulfill()
-                }
+                XCTAssert(stocks.count > 0)
+                exp.fulfill()
             }
             .store(in: &cancellables)
 
