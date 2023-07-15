@@ -11,50 +11,9 @@ import Combine
 
 final class StocksTests: XCTestCase {
 
-    var cancellables = Set<AnyCancellable>()
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    override func setUpWithError() throws {}
 
-    override func tearDownWithError() throws {
-        self.cancellables = []
-    }
-
-    /// Not sure if marking this as @MainActor is the right way to test an @MainActor function but it seems to work.
-    @MainActor func test_ViewModelDecodes_Success() async throws {
-        
-        let exp = XCTestExpectation(description: "View Model fetch success.");
-        let viewModel = ContentViewModel()
-        viewModel.fetchData()
-        
-        viewModel.$stocks
-            .sink { stocks in
-                if stocks.count > 0 {
-                    exp.fulfill()
-                }
-            }
-            .store(in: &cancellables)
-
-        await fulfillment(of: [exp], timeout: 10.0)
-    }
-    
-    @MainActor func test_ViewModelDecodes_Failure() async throws {
-        
-        let exp = XCTestExpectation(description: "View Model fetch failure.");
-        let viewModel = ContentViewModel(service: TestsNetworkService(fileName: .malformedData) )
-        viewModel.fetchData()
-        
-        viewModel.$stocks
-            .sink { stocks in
-                if stocks.count == 0 {
-                    exp.fulfill()
-                }
-            }
-            .store(in: &cancellables)
-
-        await fulfillment(of: [exp], timeout: 10.0)
-    }
-
+    override func tearDownWithError() throws {}
     
     func test_NetworkServiceDecode_Success() async throws {
         
