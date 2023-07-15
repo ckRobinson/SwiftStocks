@@ -46,7 +46,7 @@ struct StockDetailsSheetView: View {
             Spacer()
             VStack(alignment: .trailing) {
                 Text("Price Last Updated:")
-                Text("\(stockData.currentPriceDateTime)")
+                Text("\(stockData.currentPriceDateTimeString)")
             }
             .font(.footnote)
             .frame(maxWidth: .infinity, alignment: .trailing)

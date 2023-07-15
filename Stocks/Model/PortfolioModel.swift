@@ -50,7 +50,12 @@ struct Stock: Identifiable {
         "\(self.currencySymbol)\(self.currentPriceString)"
     }
     
-    let currentPriceDateTime: Date
+    private let currentPriceDateTime: Date
+    var currentPriceDateTimeString: String {
+        let formatter = DateFormatter();
+        formatter.dateFormat = "MMM d, h:mm a";
+        return formatter.string(from: self.currentPriceDateTime);
+    }
     
     let currency: String;
     var currencySymbol: String = "$";
