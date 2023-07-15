@@ -9,7 +9,7 @@ import XCTest
 import Combine
 @testable import Stocks
 
-final class StocksTests: XCTestCase {
+final class NetworkServiceTests: XCTestCase {
 
     override func setUpWithError() throws {}
 
